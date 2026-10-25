@@ -23,7 +23,6 @@ int main() {
         Input("3", relays[2].get_state())
     };
 
-    //Bool variable that holds whole program in a loop.
     bool is_running = true;
 
     while (is_running){
@@ -35,13 +34,8 @@ int main() {
 
         switch (user_choice){
 
-            /*
-            If the user chooses 1, 2, or 3, the 'index' variable stores the input decreased by 1, because arrays are 0-indexed.
-            Next, if the chosen Relay state is already true, it informs the user that this Relay is ON.
-            Otherwise, it toggles the Relay state, clears the screen to show the updated Relay state, 
-            and waits 700ms before updating the corresponding Input state (simulating an I/O controller delay).
-            Finally, it clears the terminal again and prints the fresh I/O states.
-            */
+            // Enable the chosen relay (1-3), then confirm the matching input
+            // after a short delay to simulate I/O controller latency.
             case 1:
             case 2:
             case 3: {
@@ -59,7 +53,8 @@ int main() {
                 }
                 break;
             }
-            
+            // Disable a relay chosen by the user (1-3). The matching input
+            // follows after OFF_DELAY_MS, simulating I/O controller latency.
             case 4: {
                 std::cout << "Which output to disable (1-3)?" << std::endl;
                 int relay_to_disable = get_user_choice();
