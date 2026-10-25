@@ -1,31 +1,19 @@
+
 #include "../include/console_interface.h"
+#include "../include/config.h"
 #include <iostream>
 #include <thread>
 #include <chrono>
 
-
-//Prints text menu.
-void print_menu(){ 
-        std::cout << "*********************************" << std::endl;
-        std::cout << "*         Choose output:        *" << std::endl;
-        std::cout << "* 1.             R1             *" << std::endl;
-        std::cout << "* 2.             R2             *" << std::endl;
-        std::cout << "* 3.             R3             *" << std::endl;
-        std::cout << "* 4.      Show output state     *" << std::endl;
-        std::cout << "* 5.        Disable output      *" << std::endl;
-        std::cout << "*********************************" << std::endl;
-        std::cout << "           Your choice:          " << std::endl;
-}
-
-void print_IO_menu(const std::array<Relay, 3> &relays, const std::array<Input, 3> &inputs) {
+void print_IO_menu(const std::array<Relay, RELAY_COUNT> &relays, const std::array<Input, RELAY_COUNT> &inputs) {
     std::cout << "**************************************" << std::endl;
     std::cout << "*            I/O CONTROLLER          *" << std::endl;
     std::cout << "*                                    *" << std::endl;
     for (size_t i = 0; i < relays.size(); i++) {
         std::cout   << "* R" << relays[i].get_name() << " STATE: " << relays[i].get_state() 
-                    << "           "
-                    << " I" << inputs[i].get_name() << " STATE: " << inputs[i].get_state() << " *" 
-                    << std::endl;  
+        << "           "
+        << " I" << inputs[i].get_input_name() << " STATE: " << inputs[i].get_input_state() << " *" 
+        << std::endl;  
     }
     std::cout << "*                                    *" << std::endl;
     std::cout << "**************************************" << std::endl;
@@ -35,7 +23,13 @@ void clear_screen(){
     std::cout << "\033[2J\033[1;1H";
 }
 
-void delay_ms(u_int32_t milliseconds){
+void refresh(const std::array<Relay, RELAY_COUNT> &relays, const std::array<Input, RELAY_COUNT> &inputs){
+    clear_screen();
+    print_IO_menu(relays, inputs);
+
+}
+
+void delay_ms(std::uint32_t milliseconds){
     std::this_thread::sleep_for(std::chrono::milliseconds(milliseconds));
 }
 
@@ -45,7 +39,7 @@ void delay_ms(u_int32_t milliseconds){
 //Finally, cin.ignore(); is clearing invalid input (max 100 chars or up to the newline char.)
 int get_user_choice(){
     int user_choice;
-
+    
     while (true) {
         std::cin >> user_choice;
         if (std::cin.fail()){
@@ -58,3 +52,4 @@ int get_user_choice(){
         }
     }
 }
+

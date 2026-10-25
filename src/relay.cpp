@@ -1,18 +1,19 @@
+
 #include "../include/relay.h"
 
-Relay::Relay(const std::string &relay_name) : name(relay_name), state(false)
+Relay::Relay(const std::string &relay_name) : name(relay_name), relay_state(false)
 {
 
 }
 
 bool Relay::toggle() {
-    state = !state;
-    return state;
+    relay_state = !relay_state;
+    return relay_state;
 }
 
 bool Relay::turn_off() {
-    state = false;
-    return state;
+    relay_state = false;
+    return relay_state;
 }
 
 const std::string& Relay::get_name() const{
@@ -20,5 +21,6 @@ const std::string& Relay::get_name() const{
 }
 
 const bool& Relay::get_state() const {
-    return state;
+    return relay_state;
 }
+    
