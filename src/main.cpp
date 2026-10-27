@@ -43,7 +43,6 @@ int main() {
                 if (relays[index].get_state()) {
                     std::cout << "R" << index + 1 << " already ON" << std::endl;
                 } else {
-                    std::cout << "R" << index + 1 << " chosen." << std::endl;
                     relays[index].toggle();
                     refresh(relays, inputs);
                     std::cout << "R" << index + 1 << " turned ON. Waiting for input confirmation..." << std::endl;  
